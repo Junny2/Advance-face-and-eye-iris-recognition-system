@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Givemedetails</title>
+</head>
+<body>
+<form action="http://localhost/searchperson.php" method="get">
+<table>
+<tr><td><b>Enter Name :</b></td>
+<td><input type="text" id="Name "name="Name"/></td></tr>
+<tr><td><b>Enter Date of Birth :</b></td>
+<td><input type="text" id="DOB" name="DOB"/></td></tr>
+<tr><td><b>Missing From Date :</b></td>
+<td><input type="text" id="MissingFromDate" name="MissingFromDate"/></td></tr>
+<tr><td><b>Last seen location :</b></td>
+<td><input type="text" id="Lastseenlocation" name="Lastseenlocation"/></td></tr>
+<tr><td><b>Enter Eye Color :</b></td>
+<td><input type="text" id="Eyecolor" name="Eyecolor"/></td></tr>
+<tr><td><b>Enter Ethnicity : </b></td>
+<td><input type="text" id="Ethnicity" name="Ethnicity"/></td></tr>
+<tr><td><b>Enter Aadhar Number :</b></td>
+<td><input type="text" id="Aadharnumber" name="Aadharnumber"/></td></tr>
+<tr><td><b>Add Image of Missing Person</b></td>
+<td><input type="file" id="photo" name="Photo" accept="image/*"/> </td></tr>
+<tr><td><b>Upload Video of missing person</b></td>
+<td><input type='file' id="recordedvideo" accept="video/*" /></td></tr>
+<tr><td><b>Take snapshot of video</b></td>
+<td><video id="video" width="640" height="480" autoplay></td>
+<td><button id="snap">Snap Photo</button></td>
+<td><canvas id="canvas" width="640" height="480"></canvas></video></td></tr>
+</table>
+<input type="submit" name=submit value="Submit"/>
+</form>
+<script>
+var video = document.getElementById('video');
+
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        //video.src = window.URL.createObjectURL(stream);
+        video.srcObject = stream;
+        video.play();
+    });
+}
+</script>
+<script>
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+// Trigger photo take
+document.getElementById("snap").addEventListener("click", function() {
+	context.drawImage(video, 0, 0, 640, 480);
+});
+</script>
+
+</body>
+
+</html>
+
